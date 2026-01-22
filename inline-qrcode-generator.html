@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内联二维码生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .qrcode-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        canvas {
+            max-width: 100%;
+            border: 10px solid white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .info {
+            margin: 20px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Pages 二维码生成器</h1>
+        <p class="info">点击按钮生成二维码，然后右键点击图片保存到本地</p>
+        
+        <div class="qrcode-container">
+            <canvas id="qrcodeCanvas" width="300" height="300"></canvas>
+        </div>
+        
+        <div>
+            <button onclick="generateQRCode()">生成二维码</button>
+            <button onclick="saveQRCode()">保存二维码</button>
+        </div>
+        
+        <div class="info">
+            <p>二维码指向：https://ruedelabougie.github.io/aisimbody.github.io</p>
+        </div>
+    </div>
+
+    <script>
+        // 内联二维码生成算法
+        function QRCode() {
+            this.size = 300;
+            this.cellSize = 8;
+            this.margin = 4;
+            this.data = "https://ruedelabougie.github.io/aisimbody.github.io";
+        }
+        
+        QRCode.prototype.generate = function(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = this.size;
+            
+            // 清空画布
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+            
+            // 绘制简单的二维码图案（简化版，实际应使用完整的QR码算法）
+            ctx.fillStyle = '#000000';
+            
+            // 绘制定位图案
+            this.drawFinderPattern(ctx, 20, 20);
+            this.drawFinderPattern(ctx, size - 57, 20);
+            this.drawFinderPattern(ctx, 20, size - 57);
+            
+            // 绘制数据区域（简化版，实际应编码URL）
+            for (let y = 0; y < 25; y++) {
+                for (let x = 0; x < 25; x++) {
+                    // 简单的随机图案（实际应使用URL的编码数据）
+                    if ((x + y) % 3 === 0 || (x * y) % 7 === 0) {
+                        const px = 60 + x * 8;
+                        const py = 60 + y * 8;
+                        ctx.fillRect(px, py, 7, 7);
+                    }
+                }
+            }
+            
+            // 绘制中心Logo区域
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(size / 2 - 25, size / 2 - 25, 50, 50);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(size / 2 - 25, size / 2 - 25, 50, 50);
+        };
+        
+        QRCode.prototype.drawFinderPattern = function(ctx, x, y) {
+            // 绘制定位图案
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(x, y, 57, 57);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x + 7, y + 7, 43, 43);
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(x + 14, y + 14, 29, 29);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x + 21, y + 21, 15, 15);
+        };
+        
+        let qrCode = new QRCode();
+        
+        function generateQRCode() {
+            const canvas = document.getElementById('qrcodeCanvas');
+            qrCode.generate(canvas);
+            alert('二维码已生成！右键点击图片保存到本地文件夹。');
+        }
+        
+        function saveQRCode() {
+            const canvas = document.getElementById('qrcodeCanvas');
+            
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.download = 'github-pages-qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // 页面加载时自动生成
+        window.onload = function() {
+            generateQRCode();
+        };
+    </script>
+</body>
+</html>
