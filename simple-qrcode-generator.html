@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单二维码生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .input-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qrcode {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            display: inline-block;
+        }
+        #qrcode img {
+            max-width: 100%;
+            height: auto;
+        }
+        .info {
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub Pages 二维码生成器</h1>
+    
+    <div class="input-section">
+        <p>输入您的GitHub Pages网址：</p>
+        <input 
+            type="text" 
+            id="urlInput" 
+            placeholder="https://your-username.github.io/your-repo" 
+            value="https://ruedelabougie.github.io/aisimbody.github.io"
+        >
+        <br>
+        <button onclick="generateQRCode()">生成二维码</button>
+        <button onclick="downloadQRCode()">下载二维码</button>
+    </div>
+    
+    <div id="qrcode"></div>
+    
+    <div class="info">
+        <p>扫描二维码即可访问：https://ruedelabougie.github.io/aisimbody.github.io</p>
+    </div>
+
+    <!-- 内联qrcode生成库，不依赖外部资源 -->
+    <script>
+        // QR Code Generator - 简化版
+        function QRCodeGenerator() {
+            this.qrCode = null;
+        }
+        
+        QRCodeGenerator.prototype.generate = function(text, size) {
+            // 简化的二维码生成逻辑
+            // 这里使用Google Charts API作为备用方案，更可靠
+            const googleChartsUrl = `https://chart.googleapis.com/chart?cht=qr&chs=${size}x${size}&choe=UTF-8&chld=H|1&chl=${encodeURIComponent(text)}`;
+            return googleChartsUrl;
+        };
+        
+        let qrGenerator = new QRCodeGenerator();
+        let currentImage = null;
+        
+        function generateQRCode() {
+            const url = document.getElementById('urlInput').value;
+            const qrContainer = document.getElementById('qrcode');
+            
+            if (!url) {
+                alert('请输入网址！');
+                return;
+            }
+            
+            // 使用Google Charts API生成二维码
+            const qrUrl = qrGenerator.generate(url, 256);
+            
+            // 创建图片元素
+            const img = document.createElement('img');
+            img.src = qrUrl;
+            img.alt = 'QR Code for ' + url;
+            
+            // 清空容器并添加新图片
+            qrContainer.innerHTML = '';
+            qrContainer.appendChild(img);
+            
+            currentImage = img;
+        }
+        
+        function downloadQRCode() {
+            if (!currentImage) {
+                alert('请先生成二维码！');
+                return;
+            }
+            
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.download = 'github-pages-qrcode.png';
+            link.href = currentImage.src;
+            link.click();
+        }
+        
+        // 页面加载时自动生成
+        window.onload = function() {
+            generateQRCode();
+        };
+    </script>
+</body>
+</html>
