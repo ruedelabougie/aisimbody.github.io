@@ -109,10 +109,13 @@ function counterAnimation() {
         counters.forEach(counter => {
             const target = counter.textContent;
             const isPlus = target.includes('+');
-            const numericTarget = parseInt(target.replace(/[^0-9]/g, ''));
+            const hasDecimal = target.includes('.');
+            const hasTenThousand = target.includes('万');
+            
+            // 提取数字，保留小数点
+            const numericTarget = parseFloat(target.replace(/[^0-9.]/g, ''));
             
             let current = 0;
-            const increment = numericTarget / 50;
             const duration = 2000;
             const startTime = performance.now();
             
@@ -122,11 +125,11 @@ function counterAnimation() {
                 
                 current = progress * numericTarget;
                 
-                if (target.includes('万')) {
+                if (hasTenThousand) {
                     counter.textContent = (current / 10000).toFixed(1) + '万+';
                 } else if (isPlus) {
                     counter.textContent = Math.floor(current) + '+';
-                } else if (target.includes('.')) {
+                } else if (hasDecimal) {
                     counter.textContent = current.toFixed(1);
                 } else if (target === '秒级') {
                     counter.textContent = '秒级';
