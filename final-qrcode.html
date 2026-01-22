@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages 二维码</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .qrcode {
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .info {
+            margin: 20px 0;
+            color: #666;
+        }
+        .instructions {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Pages 二维码</h1>
+        
+        <div class="qrcode">
+            <!-- 使用QR Code Monkey API生成的二维码，可靠稳定 -->
+            <img 
+                src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ruedelabougie.github.io/aisimbody.github.io" 
+                alt="GitHub Pages 二维码"
+                title="扫描访问 GitHub Pages 网站"
+            >
+        </div>
+        
+        <div class="info">
+            <p>✅ 二维码指向：<a href="https://ruedelabougie.github.io/aisimbody.github.io" target="_blank">https://ruedelabougie.github.io/aisimbody.github.io</a></p>
+        </div>
+        
+        <div class="instructions">
+            <h3>💡 使用方法：</h3>
+            <ol>
+                <li>右键点击上方的二维码图片</li>
+                <li>选择「图片另存为...」（或类似选项）</li>
+                <li>选择您想要保存的位置</li>
+                <li>点击「保存」按钮</li>
+            </ol>
+        </div>
+        
+        <div class="instructions">
+            <h3>🔧 备选方案：</h3>
+            <p>如果上述方法无效，您可以直接使用以下二维码图片URL：</p>
+            <code style="word-break: break-all; display: block; padding: 10px; background: #f0f0f0; border-radius: 5px; margin: 10px 0;">
+                https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ruedelabougie.github.io/aisimbody.github.io
+            </code>
+            <p>复制这个URL到浏览器中，然后右键点击图片保存。</p>
+        </div>
+    </div>
+</body>
+</html>
