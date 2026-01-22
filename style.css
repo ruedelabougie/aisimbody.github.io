@@ -463,6 +463,42 @@ h3 {
     color: white;
 }
 
+/* 视频演示样式 */
+.demo {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.demo-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-description {
+    margin-top: 20px;
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 /* 联系我们样式 */
 .contact {
     padding: 80px 0;
